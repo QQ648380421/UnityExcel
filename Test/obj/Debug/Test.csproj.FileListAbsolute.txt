@@ -1,0 +1,10 @@
+E:\Works\UnityExcel\Test\bin\Debug\Test.exe
+E:\Works\UnityExcel\Test\bin\Debug\Test.pdb
+E:\Works\UnityExcel\Test\bin\Debug\UnityExcel.dll
+E:\Works\UnityExcel\Test\bin\Debug\UnityExcel.pdb
+E:\Works\UnityExcel\Test\obj\Debug\Test.csprojAssemblyReference.cache
+E:\Works\UnityExcel\Test\obj\Debug\Test.csproj.CoreCompileInputs.cache
+E:\Works\UnityExcel\Test\obj\Debug\Test.csproj.CopyComplete
+E:\Works\UnityExcel\Test\obj\Debug\Test.exe
+E:\Works\UnityExcel\Test\obj\Debug\Test.pdb
+E:\Works\UnityExcel\Test\bin\Debug\System.Windows.Forms.dll
