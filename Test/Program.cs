@@ -2,63 +2,74 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.IO;
 using UnityExcel;
-
+using Newtonsoft.Json;
 namespace Test
 {
     class Program
     {
+
         public class Data
         {
-            private string _姓名;
-            private int _账号;
-            private bool _性别;
-
-            public string 姓名 { get => this._姓名; set => this._姓名 = value; }
-            public int 账号 { get => this._账号; set => this._账号 = value; }
-            public bool 性别 { get => this._性别; set => this._性别 = value; }
+     
+            private string column1;
+            private int column2;
+            private float column3;
+            private bool column4;
+            private long column5;
+            public string Column1 { get => column1; set => column1 = value; }
+            [ExcelHead("int类型")]
+            public int Column2 { get => column2; set => column2 = value; }
+            [ExcelHead("float类型")]
+            public float Column3 { get => column3; set => column3 = value; }
+            [ExcelHead("bool类型")]
+            public bool Column4 { get => column4; set => column4 = value; }
+            [ExcelHead("long类型")]
+            public long Column5 { get => column5; set => column5 = value; }
+            public override string ToString()
+            {
+                string str = JsonConvert.SerializeObject(this);
+                return str;
+            }
         }
-         
         [STAThread]
         static void Main(string[] args)
         {
+            SaveDatas();
 
-            List<Data> datas = new List<Data>();
-            //datas.Add(new Data()
-            //{
-            //    姓名 = "adsa",
-            //    性别 = true,
-            //    账号 = 158943
-            //});
-            //datas.Add(new Data()
-            //{
-            //    姓名 = "ddd",
-            //    性别 = true,
-            //    账号 = 23334
-            //});
-            //datas.Add(new Data()
-            //{
-            //    姓名 = "wwww",
-            //    性别 = false,
-            //    账号 = 1589134215
-            //});
+            ReadDatas();
+            Console.Read();
+        }
 
-            //Excel.SaveDialog<Data>(datas);
-
-
-            //Excel.Save<Data>( Directory.GetCurrentDirectory() + "/aa.csv", datas);
-
-            //datas = Excel.Read<Data>(typeof(Data), Directory.GetCurrentDirectory() + "/aa.csv");
-
-            datas  =Excel.ReadDialog<Data>(typeof(Data));
+        private static void ReadDatas()
+        {
+            //读取数据
+            List<Data> datas = Excel.ReadDialog<Data>(typeof(Data)); 
             foreach (var item in datas)
             {
-                Console.WriteLine(item.姓名 + " | " + item.性别 + " | " + item.账号);
+               
+                Console.WriteLine(item);
             }
-            Console.WriteLine("保存成功");
-            Console.Read();
-            //UnityExcel.Excel.Read<>();
+
+        }
+
+        private static void SaveDatas()
+        {
+            //保存数据
+            List<Data> datas = new List<Data>();
+            for (int i = 0; i < 30; i++)
+            {
+                datas.Add(new Data()
+                {
+                    Column1 = "string类型：" + i,
+                    Column2 = i,
+                    Column3 = i * 0.01f,
+                    Column4 = i / 2 == 0,
+                    Column5 = i * 1000000
+
+                });
+            }
+            Excel.SaveDialog(datas);
         }
     }
 }

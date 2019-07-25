@@ -8,6 +8,7 @@ using System.Text.RegularExpressions;
 using System.Windows.Forms;
 namespace UnityExcel
 {
+
     public class Excel
     {
         /// <summary>
@@ -82,11 +83,36 @@ namespace UnityExcel
                 if (i!=0)
                 {
                     saveData += ",";
+                } 
+                var item = pros[i]; 
+              var attribute = GetCustonAttribute(item); 
+                if (attribute != null)
+                {
+                    saveData += attribute.Name;
                 }
-                saveData += pros[i].Name;
+                else
+                {
+                    saveData += pros[i].Name;
+                }
+              
             }
             saveData += Environment.NewLine;
         }
+        /// <summary>
+        /// 获取自定义属性
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        private static ExcelHead GetCustonAttribute(PropertyInfo item)
+        {
+            var attribute = item.GetCustomAttributes(typeof(ExcelHead), true);
+            if (attribute!=null && attribute.Length>0)
+            {
+                return (ExcelHead)attribute[0];
+            }
+            return null;
+        }
+
         /// <summary>
         /// 添加一行数据
         /// </summary>
@@ -119,9 +145,12 @@ namespace UnityExcel
         /// <param name="filePath">表格文件</param>
         /// <returns></returns>
         public static List<T> Read<T>(Type classType,string filePath) {
-           var bytes = File.ReadAllBytes(filePath); 
+            List<T> datas = new List<T>();
+            if (string.IsNullOrEmpty(filePath)) return datas;
+         var bytes = File.ReadAllBytes(filePath); 
             string content = Encoding.GetString(bytes);
-            string[] rows = Regex.Split(content, Environment.NewLine, RegexOptions.IgnoreCase);   List<T> datas = new List<T>();
+            string[] rows = Regex.Split(content, Environment.NewLine, RegexOptions.IgnoreCase);
+       
             List<Column> columns = GetHeadColumns(rows);
 
             for (int i = 0; i < rows.Length; i++)
@@ -131,7 +160,8 @@ namespace UnityExcel
                 string[] cells = GetCells(row);
                 if (i==0)
                 {//表头
-                    if (!IsClassData(row, classType)) return null;  
+                    if (!IsClassData(row, classType))
+                        throw new Exception("表头不匹配，读取失败！");
                 }
                 else
                 {//数据
@@ -189,8 +219,32 @@ namespace UnityExcel
             for (int i = 0; i < columns.Count; i++)
             {
                 var column = columns[i];
-                var pro = pros.FirstOrDefault(p => p.Name == column.Name);
-                pro.SetValue(newobj, Convert.ChangeType(cells[column.Id], pro.PropertyType),null);
+                PropertyInfo proInfo=null;
+                foreach (var item in pros)
+                {
+                    var head = GetCustonAttribute(item);
+                    if (head==null)
+                    {
+                        if (item.Name== column.Name)
+                        {
+                            proInfo = item;
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        if (head.Name == column.Name)
+                        {
+                            proInfo = item;
+                            break;
+                        }
+                    }
+                }
+                if (proInfo!=null)
+                {
+                    proInfo.SetValue(newobj, Convert.ChangeType(cells[column.Id], proInfo.PropertyType), null);
+                }
+          
             }
             return newobj;
         }
@@ -205,10 +259,34 @@ namespace UnityExcel
         {
             var columns = row.Split(',');
             var pros = classType.GetProperties();
+          
             foreach (var item in columns)
             {
-               var column = pros.FirstOrDefault(p=>p.Name== item);
-                if (column == null) return false; 
+                bool flag = false;
+                foreach (var pros_item in pros)
+                {
+                   var head = GetCustonAttribute(pros_item);
+                    if (head==null)
+                    {
+                        if (pros_item.Name == item)
+                        {
+                            flag = true;
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        if (head.Name == item)
+                        {
+                            flag = true;
+                            break;
+                        } 
+                    }
+                }
+                if (flag==false)
+                {
+                    return false;
+                }
             }
             return true;
         }

@@ -4,3 +4,9 @@ E:\Works\UnityExcel\UnityExcel\obj\Debug\UnityExcel.csproj.CoreCompileInputs.cac
 E:\Works\UnityExcel\UnityExcel\obj\Debug\UnityExcel.dll
 E:\Works\UnityExcel\UnityExcel\obj\Debug\UnityExcel.pdb
 E:\Works\UnityExcel\UnityExcel\bin\Debug\System.Windows.Forms.dll
+F:\Git\UnityExcel\UnityExcel\bin\Debug\UnityExcel.dll
+F:\Git\UnityExcel\UnityExcel\bin\Debug\UnityExcel.pdb
+F:\Git\UnityExcel\UnityExcel\obj\Debug\UnityExcel.csprojAssemblyReference.cache
+F:\Git\UnityExcel\UnityExcel\obj\Debug\UnityExcel.csproj.CoreCompileInputs.cache
+F:\Git\UnityExcel\UnityExcel\obj\Debug\UnityExcel.dll
+F:\Git\UnityExcel\UnityExcel\obj\Debug\UnityExcel.pdb
