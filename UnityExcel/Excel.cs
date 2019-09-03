@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -67,8 +66,10 @@ namespace UnityExcel
                 }
                 AddRow(ref SaveData, pros, obj);
             }
-           var bytes = Encoding.GetBytes(SaveData);
-            File.WriteAllBytes(Path, bytes); 
+            List<byte> bytes = new List<byte>();
+            bytes.AddRange(new byte[] { (byte)0xEF, (byte)0xBB, (byte)0xBF });
+            bytes.AddRange(Encoding.GetBytes(SaveData));
+            File.WriteAllBytes(Path, bytes.ToArray());
         }
 
         /// <summary>
@@ -147,8 +148,9 @@ namespace UnityExcel
         public static List<T> Read<T>(Type classType,string filePath) {
             List<T> datas = new List<T>();
             if (string.IsNullOrEmpty(filePath)) return datas;
-         var bytes = File.ReadAllBytes(filePath); 
-            string content = Encoding.GetString(bytes);
+            var bytes = File.ReadAllBytes(filePath);
+            
+            string content = Encoding.GetString(bytes,3, bytes.Length-3);
             string[] rows = Regex.Split(content, Environment.NewLine, RegexOptions.IgnoreCase);
        
             List<Column> columns = GetHeadColumns(rows);
@@ -259,35 +261,34 @@ namespace UnityExcel
         {
             var columns = row.Split(',');
             var pros = classType.GetProperties();
-          
-            foreach (var item in columns)
+            if (columns.Length != pros.Length) return false;
+
+            for (int i = 0; i < columns.Length; i++)
             {
                 bool flag = false;
-                foreach (var pros_item in pros)
+                var columns_item = columns[i];
+                var pros_item = pros[i]; 
+                var head = GetCustonAttribute(pros_item);
+                if (head == null)
                 {
-                   var head = GetCustonAttribute(pros_item);
-                    if (head==null)
+                    if (pros_item.Name == columns_item)
                     {
-                        if (pros_item.Name == item)
-                        {
-                            flag = true;
-                            break;
-                        }
-                    }
-                    else
-                    {
-                        if (head.Name == item)
-                        {
-                            flag = true;
-                            break;
-                        } 
+                        flag = true; 
                     }
                 }
-                if (flag==false)
+                else
+                {
+                    if (head.Name == columns_item)
+                    {
+                        flag = true; 
+                    }
+                }
+                if (flag == false)
                 {
                     return false;
                 }
             }
+             
             return true;
         }
     }
