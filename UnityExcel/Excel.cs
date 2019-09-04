@@ -13,7 +13,7 @@ namespace UnityExcel
         /// <summary>
         /// 保存编码
         /// </summary>
-        public static Encoding Encoding= Encoding.UTF8;
+        public static Encoding Encoding= Encoding.GetEncoding("GB2312");
 
         /// <summary>
         /// 打开文件窗口
@@ -66,10 +66,13 @@ namespace UnityExcel
                 }
                 AddRow(ref SaveData, pros, obj);
             }
-            List<byte> bytes = new List<byte>();
-            bytes.AddRange(new byte[] { (byte)0xEF, (byte)0xBB, (byte)0xBF });
-            bytes.AddRange(Encoding.GetBytes(SaveData));
-            File.WriteAllBytes(Path, bytes.ToArray());
+            //List<byte> bytes = new List<byte>();
+            //bytes.AddRange(new byte[] { (byte)0xEF, (byte)0xBB, (byte)0xBF });
+            //bytes.AddRange(Encoding.GetBytes(SaveData));
+            //File.WriteAllBytes(Path, bytes.ToArray());
+
+             
+            File.WriteAllBytes(Path, Encoding.GetBytes(SaveData));
         }
 
         /// <summary>
@@ -149,8 +152,7 @@ namespace UnityExcel
             List<T> datas = new List<T>();
             if (string.IsNullOrEmpty(filePath)) return datas;
             var bytes = File.ReadAllBytes(filePath);
-            
-            string content = Encoding.GetString(bytes,3, bytes.Length-3);
+            string content = Encoding.GetString(bytes);
             string[] rows = Regex.Split(content, Environment.NewLine, RegexOptions.IgnoreCase);
        
             List<Column> columns = GetHeadColumns(rows);

@@ -35,7 +35,7 @@ namespace Test
         [STAThread]
         static void Main(string[] args)
         {
-            //SaveDatas();
+            SaveDatas();
 
             ReadDatas();
             Console.Read();
