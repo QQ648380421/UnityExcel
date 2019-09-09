@@ -20,3 +20,5 @@ E:\Works\GitHub\UnityExcel\Test\obj\Debug\Test.csproj.CoreCompileInputs.cache
 E:\Works\GitHub\UnityExcel\Test\obj\Debug\Test.csproj.CopyComplete
 E:\Works\GitHub\UnityExcel\Test\obj\Debug\Test.exe
 E:\Works\GitHub\UnityExcel\Test\obj\Debug\Test.pdb
+E:\Works\GitHub\UnityExcel\Test\bin\Debug\I18N.CJK.dll
+E:\Works\GitHub\UnityExcel\Test\bin\Debug\I18N.dll

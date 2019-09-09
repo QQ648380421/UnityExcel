@@ -17,4 +17,3 @@ E:\Works\GitHub\UnityExcel\UnityExcel\obj\Debug\UnityExcel.dll
 E:\Works\GitHub\UnityExcel\UnityExcel\obj\Debug\UnityExcel.pdb
 E:\Works\GitHub\UnityExcel\UnityExcel\bin\Debug\I18N.CJK.dll
 E:\Works\GitHub\UnityExcel\UnityExcel\bin\Debug\I18N.dll
-E:\Works\GitHub\UnityExcel\UnityExcel\obj\Debug\UnityExcel.csprojAssemblyReference.cache

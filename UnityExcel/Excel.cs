@@ -30,7 +30,7 @@ namespace UnityExcel
             if (fileDialog.ShowDialog() != DialogResult.OK) return null;
             if (!File.Exists(fileDialog.FileName)) return null;
             String extension = Path.GetExtension(fileDialog.FileName);
-            if (extension != ".csv" || extension!=".CSV")
+            if (extension != ".csv" && extension!=".CSV")
             {
                 throw new Exception("该文件无法识别，只能打开.csv格式的表格");
             }
