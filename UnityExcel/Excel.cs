@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Text;
-using System.Text.RegularExpressions;
-using System.Windows.Forms;
+using System.Text.RegularExpressions; 
 namespace UnityExcel
 {
     /// <summary>
@@ -17,42 +16,7 @@ namespace UnityExcel
         /// 保存编码
         /// </summary>
         public static Encoding Encoding= Encoding.GetEncoding("GB2312");
-
-        /// <summary>
-        /// 打开文件窗口
-        /// </summary>
-        /// <returns></returns>
-        private static string OpenPath()
-        { 
-            OpenFileDialog fileDialog = new OpenFileDialog();
-            fileDialog.RestoreDirectory = true;
-            fileDialog.Filter = "表格|*.csv;";
-            if (fileDialog.ShowDialog() != DialogResult.OK) return null;
-            if (!File.Exists(fileDialog.FileName)) return null;
-            String extension = Path.GetExtension(fileDialog.FileName);
-            if (extension != ".csv" && extension!=".CSV")
-            {
-                throw new Exception("该文件无法识别，只能打开.csv格式的表格");
-            }
-            return fileDialog.FileName;
-        }
-
-        /// <summary>
-        /// 保存数据，带文件选择器
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="datas"></param>
-        public static void SaveDialog<T>(List<T> datas)
-        {
-            
-            SaveFileDialog fileDialog = new SaveFileDialog(); 
-            fileDialog.RestoreDirectory = true;
-            fileDialog.Filter = "表格|*.csv;";
-            if (fileDialog.ShowDialog() != DialogResult.OK) return; 
-            Save(fileDialog.FileName, datas); 
-            System.Windows.Forms.MessageBox.Show("保存成功！", "温馨提示"); 
-        }
-
+         
         public static void Save<T>(string Path,List<T> datas) {
             List<object> Datas = new List<object>();
             foreach (var item in datas)
@@ -184,17 +148,7 @@ namespace UnityExcel
             return datas; 
         }
 
-        /// <summary>
-        /// 弹出选择文件窗口，并读取数据
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="classType"></param>
-        /// <returns></returns>
-        public static List<T> ReadDialog<T>(Type classType) { 
-            return Read<T>(classType,OpenPath());
-        }
-
-
+   
         /// <summary>
         /// 获取表头列表
         /// </summary>

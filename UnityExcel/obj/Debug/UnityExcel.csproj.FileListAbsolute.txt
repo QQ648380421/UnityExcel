@@ -12,8 +12,8 @@ F:\Git\UnityExcel\UnityExcel\obj\Debug\UnityExcel.dll
 F:\Git\UnityExcel\UnityExcel\obj\Debug\UnityExcel.pdb
 E:\Works\GitHub\UnityExcel\UnityExcel\bin\Debug\UnityExcel.dll
 E:\Works\GitHub\UnityExcel\UnityExcel\bin\Debug\UnityExcel.pdb
-E:\Works\GitHub\UnityExcel\UnityExcel\obj\Debug\UnityExcel.csproj.CoreCompileInputs.cache
 E:\Works\GitHub\UnityExcel\UnityExcel\obj\Debug\UnityExcel.dll
 E:\Works\GitHub\UnityExcel\UnityExcel\obj\Debug\UnityExcel.pdb
 E:\Works\GitHub\UnityExcel\UnityExcel\bin\Debug\I18N.CJK.dll
 E:\Works\GitHub\UnityExcel\UnityExcel\bin\Debug\I18N.dll
+E:\Works\GitHub\UnityExcel\UnityExcel\obj\Debug\UnityExcel.csprojAssemblyReference.cache
